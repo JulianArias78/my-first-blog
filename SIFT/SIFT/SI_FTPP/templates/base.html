@@ -1,0 +1,60 @@
+{% load staticfiles i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block 'head' %}{% endblock %}
+
+        <title>{% block 'title'%}Sistema de Información, Fallo de Tutelas{% endblock %}</title>
+        <link href="{% static 'libs/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link href="{% static 'libs/bootstrap-3.3.7-dist/css/datepicker.css'%}" rel="stylesheet">
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/js/jquery.form.min.js"></script>
+            
+        <script src="/static/js/demo.js"></script>
+        <script src="/static/bootstrap/js/bootstrap.js"></script>
+        <script src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="/static/js/jquery.min.js"></script><!-- no funciona las tutelas recientes-->
+        <style type="text/css">
+        
+        </style>
+            <script>
+            $(function () {
+          $('#datetimepicker4').datepicker({
+              format: 'yyyy-mm-dd' //This is the default date format Django will accept, it also disables the time in the datepicker.
+              });
+              });
+          </script>
+
+        {% block css %} {% endblock %}
+    </head> 
+
+    <body>
+        
+      {% block body %} {% endblock %}
+        
+        
+      {% block 'footer' %} {% endblock%}
+      <script src="{% static 'js/vendor/jquery-2.1.1.min.js' %}"></script>
+      <script src="{% static 'libs/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'libs/bootstrap-3.3.7-dist/js/bootstrap-datepicker.js' %}"></script>
+      <script>
+        $(function () {
+        $('#datetimepicker4').datepicker({
+        format: 'yyyy-mm-dd' //This is the default date format Django will accept, it also disables the time in the datepicker.
+        });
+        });
+      </script>
+
+      {% block js %} {% endblock %}
+    </body>
+</html> 

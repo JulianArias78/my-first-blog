@@ -1,0 +1,178 @@
+
+{% extends "home_base.html"%}
+{% load staticfiles i18n %}
+{% block js %}<script src="{% static 'js/controller_admin.js' %}"></script>{% endblock %}
+{% block container %}
+<br>
+<div class="container">
+  <div class="page-header">
+    <h2>Estadísticas de las Tutelas Registradas</h2>      
+  </div>
+<br>
+<head>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});     
+   </script>
+</head>
+<body>
+
+<div id="container1" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Etnia');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Mestizo - Blanco', {{ numet1 }}],
+      ['Afro', {{ numet2 }}],
+      ['Rom', {{ numet3 }}],
+      ['Indigena', {{ numet4 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por Etnia.',
+      'width':750,
+      'height':600};
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container1'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+<div id="container" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Género');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Masculino', {{ num1 }}],
+      ['Femenino', {{ num2 }}],
+      ['LGTBI', {{ num3 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por género.',
+      'width':750,
+      'height':600};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+
+<div id="container2" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Condición');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Víctima', {{ cond1 }}],
+      ['Discapacidad', {{ cond2 }}],
+      ['Menor', {{ cond3 }}],
+      ['Adulto Mayor', {{ cond4 }}],
+      ['Habitante de calle', {{ cond5 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por Condición.',
+      'width':750,
+      'height':600};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container2'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+
+<div id="container3" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Régimen');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Subsidiado', {{ reg1 }}],
+      ['Contributivo', {{ reg2 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por Régimen.',
+      'width':750,
+      'height':600};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container3'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+
+<div id="container4" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Entidad Pública o Privada');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Pública', {{ ent1 }}],
+      ['Privada', {{ ent2 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por Entidad Pública o Privada.',
+      'width':750,
+      'height':600};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container4'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+
+<div id="container5" style="width: 550px; height: 550px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'EPS');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Asmet Salud', {{ eps1 }}],
+      ['Cosmitet', {{ eps2 }}],
+      ['Café Salud', {{ eps3 }}],
+      ['S.O.S', {{ eps4 }}],
+      ['Salud Total', {{ eps5 }}],
+      ['Nueva EPS', {{ eps6 }}],
+      ['Pijaos Salud', {{ eps7 }}],
+      ['Sura', {{ eps8 }}],
+      ['Coomeva', {{ eps9 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por EPS.',
+      'width':750,
+      'height':600};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container5'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+
+
+</body>
+
+{% endblock %}

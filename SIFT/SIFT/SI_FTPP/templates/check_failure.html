@@ -1,0 +1,82 @@
+{% extends "home_base.html"%}
+{% load staticfiles i18n %}
+
+{% block js %}<script src="{% static 'js/controller_admin.js' %}"></script>{% endblock %}
+
+{% block container %}
+<br>
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-1"> 
+    <a href="{% url 'google_chart' %}" target="_new">
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-question-sign"></span> Graficos
+      </button>
+    </a>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="page-header">
+    <h2>Consulta de Fallos de Tutela</h2>      
+  </div>
+  <div>
+<!-- <div class="row">
+  <div class="col-md-9"></div>
+
+    <form class="form-inline pull-sm-right" method="get" accept-charset="utf-8">
+      <input class="form-control" name="q" type="text" placeholder="Search" >
+      <button class="btn btn-default" type="submit">Buscar</button>
+    </form>
+  </div>
+</div> -->
+
+<br>
+<div class="row">
+
+  <div class="col-md-3">
+    <div class="well">
+    <h3>Filtro:</h3>
+    <form method="post">
+    {% csrf_token %}
+      <div class="form-group">
+      <label>Mes del Fallo</label>
+      <input type="text" class ="form-control" name="fecha" placeholder="Ingrese el mes">
+      </div>
+      
+      <hr>
+      <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+    </form>
+    </div>
+    </div>
+    
+    </div>
+       <div id="container" style="width: 80px; height: 1000px; margin: 0 auto"></div>
+<script language="JavaScript">
+function drawChart() {
+   // Define the chart to be drawn.
+   var data = new google.visualization.DataTable();
+   data.addColumn('string', 'Género');
+   data.addColumn('number', 'Porcentaje');
+   data.addRows([
+      ['Mestizo - Blanco', {{ numet1 }}],
+      ['Afro', {{ numet2 }}],
+      ['Rom', {{ numet3 }}],
+      ['Indigena', {{ numet4 }}]
+   ]);
+   
+   // Set chart options
+   var options = {'title':'Tutelas falladas por género.',
+      'width':550,
+      'height':400};
+
+   // Instantiate and draw the chart.
+   var chart = new google.visualization.PieChart(document.getElementById('container'));
+   chart.draw(data, options);
+}
+google.charts.setOnLoadCallback(drawChart);
+</script>
+    
+<br>
+{% endblock %}

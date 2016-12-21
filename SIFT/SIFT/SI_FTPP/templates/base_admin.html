@@ -1,0 +1,41 @@
+{% extends "home_base.html"%}
+{% load staticfiles i18n %}
+{% block container %}
+<br>
+<div class="container">
+  <div class="page-header">
+    <h2>Administrador del sitio</h2>      
+  </div>
+  	<div class="well well-sm"><dt>Autenticación y autorización</dt></div>
+ 	<div class="row">
+  		<div class="col-md-8"><h4><p>Perfil de usuario</p></h4></div>
+  		<div class="col-md-2"></div>
+  		<a href="{% url 'create_user' %}" class="btn btn-success">
+		<span class="glyphicon glyphicon-plus"></span> Crear</button> </a>
+		<a href="{% url 'list_user' %}" class="btn btn-primary">
+		<span class="glyphicon glyphicon-eye-open"></span> Ver</button></a>
+		</div>
+  	<br>
+  	<div class="well well-sm"><dt>Formulario</dt></div>
+  	<div class="row">
+      <div class="col-md-8"><h4><p>Registro de tutelas</p> </h4></div>
+      <div class="col-md-2"></div>
+      <a href="{% url 'register' %}" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span> Crear</button> </a>
+    <a href="{% url 'list_register' %}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-eye-open"></span> Ver</button></a>
+    </div>
+    <br>
+        <div class="well well-sm"><dt>Consultar</dt></div>
+  <div class="row">
+      <div class="col-md-8"><h4><p>Fallos de Tutela</p></h4></div>
+      <div class="col-md-2"></div>
+      <a href="{% url 'check_failure' %}" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span> Crear</button> </a>
+    </div>
+    <br>
+  </div>
+  <br>
+
+
+{% endblock %}

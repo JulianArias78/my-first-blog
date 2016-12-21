@@ -1,0 +1,88 @@
+{% extends 'base.html'%}
+
+
+{% block css %}
+<style type="text/css">
+      .container_2{
+        margin-top: 50px;
+      }
+</style>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><span style="color:#E2E2E2">SIFT</a></span>
+          <a class="navbar-brand" href="http://www.personeriapereira.gov.co/es/ipaginas/ver/G2/104/observatorio_de__derechos_humanos/" target="_new">Personería de Pereira</a>
+          <a class="navbar-brand" href="http://comunicaciones.utp.edu.co/noticias/29845/utp-se-vincula-al-observatorio-de-derechos-y-paz-de-pereira" target="_new">UTP</a>
+          <a class="navbar-brand" href="{% url 'vista_about' %}">Acerca de</a>
+          {% if user.is_authenticated %}
+          
+          {% endif %}
+          {% if user.is_authenticated %}
+          {% if user.profile.role == "A" %}
+          <a class="navbar-brand" href="{% url 'admin_site' %}">Admin del Sitio</a>
+          {% elif user.profile.role == "AUX" %}
+          <a class="navbar-brand" href="{% url 'register' %}">Formulario</a>
+          <a class="navbar-brand" href="{% url 'list_register' %}">Tutelas Registradas</button></a>
+          {% elif user.profile.role == "END" %}
+          <a class="navbar-brand" href="{% url 'check_failure' %}">Consulta</a>
+          {% endif %}
+          {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <div id="navbar" class="collapse navbar-collapse" >
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
+                  <big><span style="color:#E2E2E2">Hola, </span><B><span style="color:#FFFFFF"> {{ user.username }}</B></span></big>
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="
+                    {% if user.profile.role == "A" %}
+                    {% url 'home_admin' %}
+                    {% elif user.profile.role == "AUX" %}
+                    {% url 'home_aux' %}
+                    {% elif user.profile.role == "END" %}
+                    {% url 'home_end' %}
+                    {% endif %}"><center><B>
+                    Mi Perfil</B></center></a></li>
+                    <li><a href='{% url "logout_page" %}'>
+                    <center><span class="glyphicon glyphicon-log-out"></span> 
+                    Cerrar sesión</center></a>
+                    </li>
+                  </ul>
+                </li>
+                        {% else %}
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href='{% url "login_page" %}'><span class="glyphicon glyphicon-log-in"></span><big> Iniciar sesión</a></li></big>
+                {% endif %}
+              </ul>
+
+          </div>
+
+
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container_2">
+    {% block container %}
+      
+    {% endblock %}
+
+    </div><!-- /.container -->
+{% endblock %}
+
+{% block js %}
+{% endblock %}

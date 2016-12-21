@@ -1,0 +1,653 @@
+{% extends "home_base.html"%}
+{% block title %} Registrar tutela {% endblock %}
+{% block container %}
+
+<div class="container">
+{% if error %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  <strong>Error: {{ error }}</strong>
+</div>
+{% endif %}
+
+<br>
+
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-1"> 
+    <a href="{% url 'help_site' %}" target="_new">
+      <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-question-sign"></span> Ayuda
+      </button>
+    </a>
+  </div>
+</div>
+<br>
+
+{% if message_error %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  <div class="font-weight-bold">Error:</div> {{ message_error }}
+</div>
+{% endif %}
+{% if message_success %}
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  {{ message_success }}
+</div>
+{% endif %}
+
+</div>
+<div class="container">
+
+  <form method="POST">
+    {% csrf_token %}
+
+
+    <h2>Formulario de Registro</h2>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#home"  aria-controls="home"  role ="tab" data-toggle="tab">
+          Datos Tutela
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#menu1" aria-controls="menu1" role ="tab" data-toggle="tab">
+          Entidad Accionada
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#menu2" aria-controls="menu2" role ="tab" data-toggle="tab">
+          Derecho Vulnerado
+        </a>
+      </li>
+      <li role="presentation">
+        <a href="#menu3" aria-controls="menu3" role ="tab" data-toggle="tab">
+          Relación Al Fallo
+        </a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="home" class="tab-pane active" role="tabpanel">
+
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">N° Radicado</label>
+          <div class="col-sm-4">
+            <input name="{{ form.id_register_guardianship.html_name }}" value="{{ form.id_register_guardianship.value|default_if_none:'' }}" type="text" class="form-control" placeholder="N° Radicado" required>
+          </div>
+
+          <label class="col-sm-2 control-label">Fecha del Fallo</label>
+          <div class="col-sm-4">
+            <input id="datetimepicker4" name="{{ form.date_of_the_decision_of_guardianship.html_name }}" value="{{ form.date_of_the_decision_of_guardianship.value|default_if_none:'' }}" type="text" class="form-control" placeholder="YYYY/MM/DD" required>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Accionante</label>
+          <div class="col-sm-4">
+            <input name="{{ form.concerning.html_name }}" value="{{ form.concerning.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Accionante" required>
+          </div>
+
+          <label class="col-sm-2 control-label">Género</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.gender.html_name }}" >
+              {% for value, text in form.fields.gender.choices %}
+              <option value="{{ value }}"{% if form.fields.gender.value == x %} selected{% endif %}>{{ text }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Etnia</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.ethnic_group.html_name }}" >
+              {% for value, text in form.fields.ethnic_group.choices %}
+              <option value="{{ value }}"{% if form.fields.ethnic_group.value == x %} selected{% endif %}>{{ text }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <label class="col-sm-2 control-label">Condición</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.condition.html_name }}" >
+              {% for value, text in form.fields.condition.choices %}
+              <option value="{{ value }}"{% if form.fields.condition.value == x %} selected{% endif %}>{{ text }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="page-header">
+            <h3>Actuación</h3>      
+          </div>
+          <div class ="row">
+            <div class="col-md-1"></div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label"></label>
+              <div class="col-sm-3">
+                <label class="radio-inline">
+                  <input type="radio" name="in_respresentation" id="inlineRadio1" value="3" required>
+                  En nombre propio
+                </label>
+              </div>
+
+              <div class="col-sm-2">
+                <label class="radio-inline">
+                  <input type="radio" name="in_respresentation" id="inlineRadio1" value="4" required>
+                  Mediante Apoderado
+                </label>
+              </div>
+
+              <div class="col-md-2">
+                <label class="radio-inline">
+                  <input type="radio" name="in_respresentation" id="inlineRadio1" value="5" required>
+                  Agente oficioso
+                </label>
+              </div>
+
+              <label class="col-sm-2 control-label">En Representación</label>
+              <div class="col-sm-3">
+
+                <div class="col-sm-8">
+                  <label class="radio-inline">
+                    <input type="radio" name="in_respresentation" id="inlineRadio1" value="1" required>
+                    Adulto mayor
+                  </label>
+                </div>
+
+                <div class="col-sm-8">
+                  <label class="radio-inline">
+                    <input type="radio" name="in_respresentation" id="inlineRadio1" value="2" required>
+                    Menor de edad
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div id="menu1" class="tab-pane" role="tabpanel">
+
+        <div class="form-group">
+          <div class="col-sm-2">
+            <label class="radio-inline">
+              <input type="radio" name="public" id="inlineRadio1" value="option6">
+              Pública
+            </label>
+          </div>
+
+          <div class="col-sm-4">
+            <label class="radio-inline">
+              <input type="radio" name="private" id="inlineRadio1" value="option7">
+              Privada
+            </label>
+          </div>
+          <label class="col-sm-2 control-label">Pensión</label>
+          <div class="col-sm-4">
+            <input name="{{ form.pension.html_name }}" value="{{ form.pension.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Pensión">
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="col-sm-2">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="epn" id="checkboxWarning" value="option1">EPN
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="epm" id="checkboxWarning" value="option1">EPM
+              </label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">¿Cuál?</label>
+          <div class="col-sm-4">
+            <input name="{{ form.which_entity.html_name }}" value="{{ form.which_entity.value|default_if_none:'' }}" type="text" class="form-control" placeholder="¿Cuál entidad acionada?">
+          </div>
+          <label class="col-sm-2 control-label">Régimen</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.regime.html_name }}" >
+              {% for value, text in form.fields.regime.choices %}
+              <option value="{{ value }}"{% if form.fields.regime.value == x %} selected{% endif %}>{{ text }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <div class="container">
+            <div class="page-header">
+              <h3>Eps Accionada</h3>      
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="asmet_salud">Asmet Salud
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="cafe_salud">Café Salud
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1"
+                  name="sos">SOS
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1"
+                  name="salud_total">Salud Total
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1"
+                  name="nueva_eps">Nueva EPS
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="pijaos_salud">Pijaos Salud
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="coomeva">Coomeva EPS
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="cosmitet">Cosmitet
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="checkboxWarning" value="option1" name="sura">Sura EPS
+                </label>
+              </div>
+            </div>
+            <br>
+            <label class="col-sm-3 control-label">Otra EPS</label>
+            <div class="col-sm-5">
+              <input name="{{ form.other_eps.html_name }}" value="{{ form.other_eps.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Otra EPS" >
+            </div>
+          </div>
+        </div>    
+      </div>
+
+
+      <div id="menu2" class="tab-pane" role="tabpanel">
+
+
+
+        <div class="form-group">
+          <div class="page-header">
+            <h3>Seleccione los Derechos</h3>      
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="personal_integrity">Integridad Personal
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="life">Vida
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="human_dignity">Dignidad Humana
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="health">Salud
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="social_security">Seguridad Social
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="right_of_petition">Derecho de Petición
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="due_process">Debido Proceso
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="vital_minimum">Mínimo Vital
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="work">Trabajo
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="equality">Igualdad
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="privacy">Intimidad
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="free_personality_development">Libre Desarrollo de la Personalidad
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="healthy_environment">Ambiente Sano
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="habeas_data">Habeas Data
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="good_name" >Buen Nombre
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="education">Educación
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="freedom_of_Worship">Libertad de Culto
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="freedom_of_expression">Libertad de Expresión
+              </label>
+            </div>
+          </div>
+          <br>
+
+            <label class="col-sm-3 control-label">Otro Derecho</label>
+          <div class="col-sm-3">
+            <input name="{{ form.other_right.html_name }}" value="{{ form.other_right.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Otro Derecho Vulnerado" >
+          </div>
+        </div>
+
+      </div>
+
+
+      <div id="menu3" class="tab-pane" role="tabpanel">
+
+        <div class="form-group">
+
+          <div class="page-header">
+            <h3>Negación en Salud</h3>      
+          </div>
+          <div class="row">
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="medicament">Medicamento
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="process">Procedimiento
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="timely_medical_appointment">Cita Médica Oportuna
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="specialized_appointment">Cita Especializada
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="transfers_and_travel_expenses">Traslados y Viáticos
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="prosthesis">Prótesis
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="disability_payment">Pago por Incapacidad
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="supplies">Insumos
+              </label>
+            </div>
+          </div>
+        <br>
+        <br>
+        <p>
+        </p>
+        </br>
+
+          <label class="col-sm-2 control-label"></label>
+          <p>
+          <label class="col-sm-2 control-label">Otra Negación</label>
+          <div class="col-sm-4">
+            <input name="{{ form.another_negation.html_name }}" value="{{ form.another_negation.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Otra Negación" >
+          </div>
+          </p>
+        </div>
+        </div>
+        <div class="form-group">
+          <div class="page-header">
+            <h3>Con Relación al Fallo</h3>      
+          </div>
+          <div class="row">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-1 control-label">Concede</label>
+              <div class="col-sm-1">
+                <div class="checkbox">
+                <select class="form-control" data-live-search="true" name="{{ form.grant.html_name }}" >
+                  {% for value, text in form.fields.grant.choices %}
+                  <option value="{{ value }}"{% if form.fields.grant.value == x %} selected{% endif %}>{{ text }}</option>
+                  {% endfor %}
+                </select>
+                </div>
+              </div>
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2 control-label">Improcedente por </label>
+              <div class="col-sm-3">
+                <select class="form-control" data-live-search="true" name="{{ form.improper_for.html_name }}" >
+                  {% for value, text in form.fields.improper_for.choices %}
+                  <option value="{{ value }}"{% if form.fields.improper_for.value == x %} selected{% endif %}>{{ text }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            <div class="col-sm-3">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="fraud_court_decision">Fraude a resolución judicial
+              </label>
+            </div>
+          </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+          <div class="page-header">
+            <h3>Repite Contra</h3>      
+          </div>
+          <div class="col-sm-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="fosyga">FOSYGA
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="checkboxWarning" value="option1" name="fomag">Fiduprevisora FOMAG
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="checkbox">
+              <label for="checkboxWarning1">
+              <input type="checkbox" id="checkboxWarning1" value="option1" name="health_secretary">Secretaría de Salud
+              </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+<br>
+<div class="row">
+  <div class="col-md-8">
+  <h4>Éste formulario contiene campos obligatorios*</h4>
+  {% if user.get_username %}
+  <h5>Registrado por:  {{ user.get_username }}</h5>
+  {% endif %}
+  </div>
+</div>
+<br>
+    <div class="form-group">
+      <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3">
+            <button class="btn btn-primary" type="submit">
+              <span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a>
+            </button>  
+          </div>
+          <div class="col-md-2">            
+            <a href="" class="btn btn-info">
+              <span class="glyphicon glyphicon-trash"></span> Limpiar</a>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+<script>
+  $(function () {
+$('#datetimepicker4').datepicker({
+    format: 'yyyy-mm-dd' //This is the default date format Django will accept, it also disables the time in the datepicker.
+    });
+    });
+</script>
+{% endblock %}

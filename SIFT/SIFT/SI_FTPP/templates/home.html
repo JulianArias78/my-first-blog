@@ -1,0 +1,22 @@
+{% extends "home_base.html"%}
+
+{% block container %}
+      	<br>
+      	<h1><center>REGISTRO DE FALLOS DE TUTELA</h1>
+      	<p align="center">
+      		{% load static %}
+			<img src="{% static "img/logo_personeria.png" %}" alt="Personseria Pereira"/>
+           <br>
+           <p>
+           <p>
+        <center>
+        <br>
+        {% if user.is_authenticated %}
+        {% else %}
+        <p class="lead">Bienvenido, los invitados no pueden accerder a la plataforma, por favor intente identificarse.</p>
+        <p>
+        <a class="btn btn-primary btn-lg" href="{% url 'login_page' %}" role="button">Iniciar Sesión</a>
+        </center>
+        {% endif %}
+        <br>
+{% endblock %}

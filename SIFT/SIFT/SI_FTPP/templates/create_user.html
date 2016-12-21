@@ -1,0 +1,169 @@
+{% extends "home_base.html"%}
+{% block title %} Crear Usuario {% endblock %}
+{% block container %}
+{% if error %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  <strong>Error: {{ error }}</strong>
+</div>
+{% endif %}
+<div class="row flex-items-xs-middle fill_parent">
+  <div class="col-xs p-a-0">
+      <center class="m-b-1"><h2>Crea tu cuenta de SIFT</h2></center>
+  </div>
+</div>
+{% if message_error %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  <div class="font-weight-bold">Error:</div> {{ message_error }}
+</div>
+{% endif %}
+{% if message_success %}
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span>
+  </button>
+  {{ message_success }}
+</div>
+{% endif %}
+<br>
+<div class="row">
+  <form class="form-horizontal" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+          <label class="col-sm-4 control-label">Nombre de usuario</label>
+          <div class="col-sm-4">
+            <input name="{{ form.username.html_name }}" value="{{ form.username.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Nombre de usuario" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Tipo de Identificación</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.document_type.html_name }}" >
+            {% for value, text in form.fields.document_type.choices %}
+              <option value="{{ value }}"{% if form.fields.document_type.value == x %} selected{% endif %}>{{ text }}</option>
+            {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Número de identificación</label>
+          <div class="col-sm-4">
+            <input name="{{ form.document_number.html_name }}" value="{{ form.document_number.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Número documento" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Nombres</label>
+          <div class="col-sm-4">
+            <input name="{{ form.first_name.html_name }}" value="{{ form.first_name.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Nombres" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Apellidos</label>
+          <div class="col-sm-4">
+            <input name="{{ form.last_name.html_name }}" value="{{ form.last_name.value|default_if_none:'' }}" type="text" class="form-control" placeholder="Apellidos" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Contraseña</label>
+          <div class="col-sm-4">
+            <input name="{{ form.password.html_name }}" value="{{ form.password.value|default_if_none:'' }}" type="password" class="form-control" placeholder="Contraseña" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Repetir Contraseña</label>
+          <div class="col-sm-4">
+            <input name="{{ form.password.html_name }}" value="{{ form.password.value|default_if_none:'' }}" type="password" class="form-control" placeholder="Repetir Contraseña" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Género</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.gender.html_name }}" >
+            {% for value, text in form.fields.gender.choices %}
+              <option value="{{ value }}"{% if form.fields.gender.value == x %} selected{% endif %}>{{ text }}</option>
+            {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Email</label>
+          <div class="col-sm-4">
+            <input name="{{ form.email.html_name }}" value="{{ form.email.value|default_if_none:'' }}" type="email" class="form-control" placeholder="Email" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Teléfono</label>
+          <div class="col-sm-4">
+            <input name="{{ form.phone.html_name }}" value="{{ form.phone.value|default_if_none:'' }}" type="tel" class="form-control" placeholder="Teléfono" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Cargo</label>
+          <div class="col-sm-4">
+            <select class="form-control" data-live-search="true" name="{{ form.role.html_name }}" >
+            {% for value, text in form.fields.role.choices %}
+              <option value="{{ value }}"{% if form.fields.role.value == x %} selected{% endif %}>{{ text }}</option>
+            {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Estado</label>
+          <div class="col-sm-4">
+        <div class="has-warning">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="checkboxWarning" name="is_active">
+              ¿Desea que el usuario esté activo?
+            </label>
+          </div>
+        </div>
+        <br>
+
+</div>
+</div>
+        <div class="form-group">
+        <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-1">
+          <a class="btn btn-danger" href="{% url 'login_page' %}">
+          <span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+        </button>
+        </div>
+        <div class="col-md-2">  
+          <button class="btn btn-success" type="submit">
+          <span class="glyphicon glyphicon-share-alt"></span> Regístrate</button>
+          </div>
+
+    </form>
+</div>
+
+<script>
+$(function() {
+    $("#birthdate").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        showAnim: "slideDown",
+        yearRange: "-100:+0"
+    });
+});
+</script>
+{% endblock %}

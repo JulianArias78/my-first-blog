@@ -1,0 +1,73 @@
+{% extends "home_base.html"%}
+{% block title %}Perfil Digitador {% endblock %}
+{% block container %}
+<br>
+<center><h2>Bienvenido(a) {{ user.username }}!</h2></center>
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <p align="center">
+    {% load static %}
+    <a href="http://www.personeriapereira.gov.co/es/inicio.html" target="_new">
+  <img src="{% static "img/logo_personeria.png" %}" alt="Personseria de Pereira" style="width:160px;height:148px;border:0;"/>
+  </a>
+  </p>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6 col-md-offset-3">           
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nombre de Usuario</th>
+        <th>{{ user.username }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Tipo de documento</th> 
+        <td> {{ user.profile.get_document_type_display }} </td>
+      </tr>
+      <tr>
+        <th scope="row">Número de documento</th> 
+        <td>{{ user.profile.document_number }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Nombres</th> 
+        <td>{{ user.first_name }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Apellidos</th> 
+        <td>{{ user.last_name }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Género</th> 
+        <td>{{ user.profile.get_gender_display }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th> 
+        <td>{{ user.email }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Número de teléfono</th> 
+        <td>{{ user.profile.phone }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Cargo</th> 
+        <td>{{ user.profile.get_role_display }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Estado</th> 
+        <td>
+        {% if user.is_active is True %}
+        Activo
+        {% else %}
+        Inactivo
+        {% endif %}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

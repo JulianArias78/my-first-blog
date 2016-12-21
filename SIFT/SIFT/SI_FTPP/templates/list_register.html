@@ -1,0 +1,443 @@
+
+{% extends "home_base.html"%}
+{% load staticfiles i18n %}
+
+{% block js %}<script src="{% static 'js/controller_admin.js' %}"></script>{% endblock %}
+
+{% block container %}
+<br>
+<div class="container">
+  <div class="page-header">
+    <h2>Lista de Tutelas Registradas</h2>      
+  </div>
+  <div>
+
+    <br>
+    <div class="row p-t-1">
+      <div class="col-xs-12 p-a-0">
+        <div class="table-responsive table-hover">
+          <table id="table-select" class="table table-hover">
+            <thead>
+              <tr>
+                <th class="text-center">N° Radicado</th>
+                <th class="text-center">Fecha del Fallo</th>
+                <th class="text-center">Accionante</th>
+                <th class="text-center">Género</th>
+                <th class="text-center">Etnia</th>
+                <th class="text-center">Condición</th>
+                <th class="text-center">En Representación</th>
+                <th class="text-center">Pública</th>
+
+                <th class="text-center">Privada</th>
+                <th class="text-center">Pensión</th>
+                <th class="text-center">EPM</th>
+                <th class="text-center">EPN</th>
+                <th class="text-center">Régimen</th>
+                <th class="text-center">¿Cuál entidad?</th>
+
+                <th class="text-center">Asmet Salud</th>
+                <th class="text-center">Cafe Salud</th>
+                <th class="text-center">SOS</th>
+                <th class="text-center">Salud Total</th>
+                <th class="text-center">Nueva EPS</th>
+                <th class="text-center">Pijaos Salud</th>
+                <th class="text-center">Sura</th>
+                <th class="text-center">Coomeva</th>
+                <th class="text-center">Cosmitet</th>
+                <th class="text-center">Otra Eps</th>
+
+                <th class="text-center">Integridad Personal</th>
+                <th class="text-center">Vida</th>
+                <th class="text-center">Dignidad Humana</th>
+                <th class="text-center">Salud</th>
+                <th class="text-center">Seguridad Social</th>
+                <th class="text-center">Derecho de Petición</th>
+                <th class="text-center">Debido Proceso</th>
+                <th class="text-center">Mínimo Vital</th>
+                <th class="text-center">Trabajo</th>
+                <th class="text-center">Igualdad</th>
+                <th class="text-center">Intimidad</th>
+                <th class="text-center">Libre Desarrollo de la Personalidad</th>
+                <th class="text-center">Hambiente Sano</th>
+                <th class="text-center">Habeas Data</th>
+                <th class="text-center">Buen Nombre</th>
+                <th class="text-center">Educacion</th>
+                <th class="text-center">Libertad de Culto</th>
+                <th class="text-center">Libertad de Expresión</th>
+                <th class="text-center">¿Cuál Derecho?</th>
+
+                <th class="text-center">Medicamento</th>
+                <th class="text-center">Procedimiento</th>
+                <th class="text-center">Cita Médica Oportuna</th>
+                <th class="text-center">Cita Especializada</th>
+                <th class="text-center">Traslados y Viáticos</th>
+                <th class="text-center">Protesis</th>
+                <th class="text-center">Pago por Incapacidad</th>
+                <th class="text-center">Insumos</th>
+                <th class="text-center">¿Cuál Negación?</th>
+                <th class="text-center">Concede</th>
+                <th class="text-center">Improcedente</th>
+                <th class="text-center">Fraude a resolución judicial</th>
+                <th class="text-center">Fosyga</th>
+                <th class="text-center">Fomag</th>
+                <th class="text-center">Secretaría de Salud</th>
+                <th class="text-center"></th>
+<!--             <th><h5>N° identificación</th>
+  <th><h5>Cargo</h5></th> -->
+              </tr>
+            </thead>
+
+            </thead>
+<tbody class="text-center">
+  <form method="POST" action="/tasks/" >
+    {% csrf_token %}
+  {% for usr in register_guardianship %}
+  <tr> 
+    <td class="text-center">{{ usr.id_register_guardianship }}</td>
+    <td class="text-center">{{ usr.date_of_the_decision_of_guardianship }}</td>
+    <td class="text-center">{{ usr.concerning }}</td>
+    <td class="text-center">{{ usr.get_gender_display }}</td>
+    <td class="text-center">{{ usr.get_ethnic_group_display }}</td>
+    <td class="text-center">{{ usr.get_condition_display }}</td>
+
+    <td class="text-center">{{ usr.get_in_respresentation_display }}</td>
+
+    <td class="text-center">
+    {% if usr.public is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+    {% if usr.private is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">{{ usr.pension }}</td>
+    <td class="text-center">
+        {% if usr.epm is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+        </td>
+    <td class="text-center">
+          {% if usr.epn is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">{{ usr.get_regime_display }}</td>
+    <td class="text-center">{{ usr.which_entity }}</td>
+    <td class="text-center">
+          {% if usr.asmet_salud is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.cafe_salud is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.sos is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.salud_total is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.nueva_eps is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.pijaos_salud is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.sura is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.coomeva is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.cosmitet is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">{{ usr.other_eps }}</td>
+
+
+    <td class="text-center">
+          {% if usr.personal_integrity is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.life is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.human_dignity is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.health is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.social_security is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.right_of_petition is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.due_process is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.vital_minimum is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.work is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.equality is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.privacy is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.free_personality_development is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.healthy_environment is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.habeas_data is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.good_name is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.education is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.freedom_of_Worship is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.freedom_of_expression is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">{{ usr.other_right }}</td>
+
+
+    <td class="text-center">
+          {% if usr.medicament is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.process is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.timely_medical_appointment is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.specialized_appointment is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.transfers_and_travel_expenses is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.prosthesis is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.disability_payment is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+          {% if usr.supplies is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+    <td class="text-center">{{ usr.another_negation }}</td>
+
+    <td class="text-center">{{ usr.get_grant_display }}</td>
+    <td class="text-center">{{ usr.get_improper_for_display }}</td>
+
+    <td class="text-center">
+          {% if usr.fraud_court_decision is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+
+    <td class="text-center">
+          {% if usr.fosyga is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+
+
+    <td class="text-center">
+          {% if usr.fomag is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+
+    <td class="text-center">
+          {% if usr.health_secretary is True %}
+      <span style="color:green"><i class="glyphicon glyphicon-ok"></i></span>
+        {% else %}
+      <span style="color:red"><i class="glyphicon glyphicon-remove"></i></span>
+        {% endif %}
+    </td>
+
+<td>
+          {% if user.is_authenticated %}
+          {% if user.profile.role == "A" %}
+        <a href ="/editar_tutela/{{ usr.id }}" button class="btn btn-success btn-xs">
+          <span class="glyphicon glyphicon-pencil"></span> Modificar</button> </a>
+<!--         <button class="btn btn-danger btn-xs">
+          <span class="glyphicon glyphicon-trash"></span> Eliminar</button></th> -->
+            </form>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
